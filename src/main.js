@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import axios from 'axios'
 
 import "./assets/main.css";
+import "./assets/itypen-md.css";
 import "/src/tailwind.css";
 
 const app = createApp(App);

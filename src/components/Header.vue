@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="header w-screen h-[58px] bg-white shadow-sm">
+  <div class="header w-screen h-[58px]shadow-sm">
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/about">About</RouterLink>
   </div>
@@ -13,6 +13,9 @@
   position: sticky;
   top: 0px;
   left: 0px;
+  background-color: rgba(255,255,255,.7098039216);
+  backdrop-filter: saturate(180%) blur(18px)!important;
+  z-index: 9999;
 }
 
 .header a {

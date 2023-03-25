@@ -8,17 +8,18 @@ module.exports =
     ],
   theme:
   {
-    colors:
-    {
-      'main': "#71afdd",
-      'text': "#222831",
-    },
     container:
     {
       center: true,
     },
     extend:
-      {},
+    {
+      colors:
+      {
+        'main': "#71afdd",
+        'text': "#222831",
+      },
+    },
   },
   plugins:
     [],
