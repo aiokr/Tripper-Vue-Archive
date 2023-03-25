@@ -6,31 +6,38 @@ import MarkdownIt from 'markdown-it'
 import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
 import emoji from 'markdown-it-emoji'
 import footnote from 'markdown-it-footnote'
+import moment from 'moment'
 
 let route = useRoute()
 let id = ref(null)
-let ArticleId = ref(null)
 let article = ref(null)
 let author = ref(null)
-let catagory = ref(null)
+let category = ref(null)
 let text = ref(null)
-const markdownContent = ref('')
+let cover = ref(null)
+let tags = ref(null)
+let pubDate = ref(null)
 
+const markdownContent = ref('')
 var md = new MarkdownIt({
   breaks: true,
-  langPrefix:   'language-',
-  linkify: true,  
+  langPrefix: 'language-',
+  linkify: true,
 })
 md.use(emoji).use(footnote)
 
 id = route.params.id
+
 async function getArticleById(id) {
   try {
-    const response = await axios.get(`https://strapi-production-f22a.up.railway.app/api/articles/${id}?populate=Author,category`);
+    const response = await axios.get(`https://strapi-production-f22a.up.railway.app/api/articles/${id}?populate=Author,category,cover,tags`);
     article.value = response.data;
-    author.value = article.value.data.attributes.Author.data
-    catagory.value = article.value.data.attributes.category.data
     text.value = article.value.data.attributes.Text
+    pubDate.value = article.value.data.attributes.Date
+    author.value = article.value.data.attributes.Author.data
+    category.value = article.value.data.attributes.category.data
+    //cover.value = article.value.data.attributes.cover.data.attributes.link
+    pubDate = moment(pubDate).format('YYYY-MM-DD')
     markdownContent.value = md.render(text.value)
   } catch (error) {
     console.error(error);
@@ -41,20 +48,22 @@ onMounted(() => {
   getArticleById(id)
 })
 
-
 </script>
 
 <template>
-  <div class="container pt-12 max-w-3xl">
+  <div class="container pt-12 max-w-[92%] md:max-w-2xl xl:max-w-3xl">
     <div v-if="article">
       <div>
-        <div class="post-title font-semibold text-3xl">{{ article.data.attributes.Title }}</div>
+        <div v-if="article.data.attributes.cover.data?.attributes.link" class="post-cover aspect-video bg-slate-200" :style="{ 'background-image': 'url(' + (article.data.attributes.cover.data?.attributes.link) + ')' }"></div>
+        <div class="post-title font-semibold text-3xl pt-4">{{ article.data.attributes.Title }}</div>
         <div class="post-subtitle opacity-80 pt-2">
-          <span v-for="items in author" :key="items.id">
-            {{ items.attributes.username }}&#20;/&#20;
+          <span v-if="author" v-for="items in author" :key="items.id">
+            {{ items.attributes.username }} / 
           </span>
+          <span v-if="category">
+            {{ category.attributes.Name }} / </span>
           <span>
-            {{ catagory.attributes.Name }}
+            {{ pubDate }}
           </span>
         </div>
         <article>
@@ -64,3 +73,10 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style>
+.post-cover {
+  background-position: center;
+  background-size: cover;
+}
+</style>

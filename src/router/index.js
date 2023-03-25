@@ -20,7 +20,7 @@ const router = createRouter({
       component: AboutView,
     },
     {
-      path: "/article/:id",
+      path: "/post/:id",
       name: "article",
       component: ArticleView,
     },

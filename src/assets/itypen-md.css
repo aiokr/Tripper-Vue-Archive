@@ -5,6 +5,7 @@ Photup Article Style
 :root {
   --main-color: #71afdd;
   --main-black: #222831;
+  --radius: 10px;
 }
 
 article p {

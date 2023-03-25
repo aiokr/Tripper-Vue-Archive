@@ -16,6 +16,7 @@
     "markdown-it-emoji": "^2.0.2",
     "markdown-it-footnote": "^3.0.3",
     "markdown-it-toc-and-anchor": "^4.2.0",
+    "moment": "^2.29.4",
     "vue": "^3.2.47",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.0.12"
