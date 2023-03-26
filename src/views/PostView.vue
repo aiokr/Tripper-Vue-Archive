@@ -17,6 +17,7 @@ let text = ref(null)
 let cover = ref(null)
 let tags = ref(null)
 let pubDate = ref(null)
+let title = ref(null)
 
 const markdownContent = ref('')
 var md = new MarkdownIt({
@@ -30,13 +31,14 @@ id = route.params.id
 
 async function getArticleById(id) {
   try {
-    const response = await axios.get(`https://strapi-production-f22a.up.railway.app/api/articles/${id}?populate=Author,category,cover,tags`);
+    const response = await axios.get(`https://strapicms.tripper.press/api/articles/${id}?populate=Author,category,cover,tags`);
     article.value = response.data;
+    title.value = article.value.data.attributes.Title
+    document.title = title.value +' | Tripper Press'
     text.value = article.value.data.attributes.Text
     pubDate.value = article.value.data.attributes.Date
     author.value = article.value.data.attributes.Author.data
     category.value = article.value.data.attributes.category.data
-    //cover.value = article.value.data.attributes.cover.data.attributes.link
     pubDate = moment(pubDate.value).format('YYYY-MM-DD')
     markdownContent.value = md.render(text.value)
   } catch (error) {

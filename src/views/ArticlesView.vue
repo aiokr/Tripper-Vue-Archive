@@ -13,7 +13,7 @@ let pageid = ref(null)
 
 async function getArticleList(pageid) {
   try {
-    const ArticleListUrl = 'https://strapi-production-f22a.up.railway.app/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[page]='+pageid+'&pagination[pageSize]=10'
+    const ArticleListUrl = 'https://strapicms.tripper.press/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[page]='+pageid+'&pagination[pageSize]=10'
     const response = await axios.get(ArticleListUrl);
     articleList.value = response.data.data;
     console.log(articleList.value)

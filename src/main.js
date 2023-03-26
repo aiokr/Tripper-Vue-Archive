@@ -18,6 +18,6 @@ app.config.globalProperties.$axios = axios
 app.use(router).mount("#app");
 
 // 全局变量
-const apiUrl = 'https://strapi-production-f22a.up.railway.app/';
+const apiUrl = 'https://strapicms.tripper.press/';
 app.provide('apiUrl', apiUrl); //便于在js部分可直接用
 app.config.globalProperties.$apiUrl = apiUrl;  //便于在模板部分可直接用

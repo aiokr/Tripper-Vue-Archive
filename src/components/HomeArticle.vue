@@ -3,10 +3,9 @@ import { ref } from 'vue'
 import axios from 'axios'
 
 let articleData = ref(null);
-let category = ref(null)
 async function fetchData() {
   try {
-    const response = await axios.get('https://strapi-production-f22a.up.railway.app/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[limit]=3');
+    const response = await axios.get('https://strapicms.tripper.press/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[limit]=3');
     articleData.value = response.data.data;
     console.log(articleData.value)
   } catch (error) {
@@ -24,41 +23,45 @@ const state = {
 
 <template>
   <div class="index-post-area container max-w-7xl px-6 lg:px-8">
-    <div class="home-title pt-8 pb-6">
-      <div class="text-2xl font-bold">文章</div><RouterLink to="/article/1" class="all-article">所有文章</RouterLink>
+    <div class="home-title pt-8 pb-2">
+      <div class="text-2xl font-bold">文章</div>
+      <RouterLink to="/article/1" class="all-article">所有文章</RouterLink>
     </div>
-    <div v-if="articleData" class="grid gap-8 grid-cols-1 md:grid-cols-3">
-      <div v-for="item in articleData" :key="item.id">
+    <div class="text-sm opacity-50 mb-6">放下相机，认真思考</div>
+  <div v-if="articleData" class="grid gap-8 grid-cols-1 md:grid-cols-3 place-items-stretch">
+      <div class="post-entry" v-for="item in articleData" :key="item.id">
         <router-link :to="{ path: `/post/` + item.id }">
-          <div class="post-entry">
-            <div v-if="item.attributes.cover.data?.attributes.link" class="post-cover"
-              :style="{ 'background-image': 'url(' + (item.attributes.cover.data?.attributes.link) + ')' }">
-            </div>
-            <div v-else class="post-cover"
-              style="background-image: url('//imgur.lzmun.com/picgo/after2022/6DD1FBC3-AD8A-4340-842D-6ACF531F8291_1_105_c.jpeg_itp')">
-            </div>
-            <div class="post-info pt-[8px]">
-              <span class="post-time">{{ item.attributes.Date }}</span>
-              <div class="post-title text-lg pt-[12px]">{{ item.attributes.Title }}</div>
 
-              <span v-if="item.attributes.describe" class="post-describe">{{ item.attributes.describe }}</span>
-              <span v-else class="post-describe"></span>
-
-              <span v-if="item.attributes.category.data?.attributes.Name" class="post-category">{{
-                item.attributes.category.data?.attributes.Name }}</span>
-              <span v-else class="post-category nocategory">No Category</span>
-            </div>
-            <!--<div v-for="author in item.attributes.Author.data" :key="author.id">
-                              {{ author.attributes.username }}
-                            </div>-->
+          <div v-if="item.attributes.cover.data?.attributes.link" class="post-cover"
+            :style="{ 'background-image': 'url(' + (item.attributes.cover.data?.attributes.link) + ')' }">
           </div>
+          <div v-else class="post-cover"
+            style="background-image: url('//imgur.lzmun.com/picgo/after2022/6DD1FBC3-AD8A-4340-842D-6ACF531F8291_1_105_c.jpeg_itp')">
+          </div>
+          <div class="post-info pt-[8px]">
+            <span class="post-time">{{ item.attributes.Date }}</span>
+            <div class="post-title text-lg pt-[12px]">{{ item.attributes.Title }}</div>
+
+            <span v-if="item.attributes.describe" class="post-describe">{{ item.attributes.describe }}</span>
+            <span v-else class="post-describe"></span>
+
+            <span v-if="item.attributes.category.data?.attributes.Name" class="post-category">{{
+              item.attributes.category.data?.attributes.Name }}</span>
+            <span v-else class="post-category nocategory">No Category</span>
+          </div>
+          <!--<div v-for="author in item.attributes.Author.data" :key="author.id">
+                                    {{ author.attributes.username }}
+                                  </div>-->
+
 
         </router-link>
       </div>
     </div>
+    <div v-else style="height: 405px;">
+      Loading……
+    </div>
   </div>
 </template>
-
 
 <style scoped>
 
@@ -116,13 +119,13 @@ const state = {
   display: block;
   font-size: 12px;
   line-height: 18px;
-  height: 54px;
+  height: 36px;
   padding-top: 10px;
   display: -webkit-box;
   /*将对象作为弹性伸缩盒子模型显示  必要*/
   -webkit-box-orient: vertical;
   /*设置或检索伸缩盒对象的子元素的排列方式  必要*/
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   /*指定第几行溢出省略  必要*/
   overflow: hidden;
   /*溢出隐藏  必要*/
@@ -130,7 +133,6 @@ const state = {
 
 .post-title {
   line-height: 22px;
-  height: 60px;
 }
 
 .post-cover {
