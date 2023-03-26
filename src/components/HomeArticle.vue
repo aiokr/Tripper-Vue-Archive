@@ -6,7 +6,7 @@ let articleData = ref(null);
 let category = ref(null)
 async function fetchData() {
   try {
-    const response = await axios.get('https://strapi-production-f22a.up.railway.app/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover');
+    const response = await axios.get('https://strapi-production-f22a.up.railway.app/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[limit]=3');
     articleData.value = response.data.data;
     console.log(articleData.value)
   } catch (error) {
