@@ -3,8 +3,9 @@
 
 <template>
   <div class="header w-screen h-[58px]shadow-sm">
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
+    <RouterLink to="/">首页</RouterLink>
+    <RouterLink to="/article/1">文章</RouterLink>
+    <RouterLink to="/about">关于</RouterLink>
   </div>
 </template>
 

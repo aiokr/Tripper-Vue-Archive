@@ -37,7 +37,7 @@ async function getArticleById(id) {
     author.value = article.value.data.attributes.Author.data
     category.value = article.value.data.attributes.category.data
     //cover.value = article.value.data.attributes.cover.data.attributes.link
-    pubDate = moment(pubDate).format('YYYY-MM-DD')
+    pubDate = moment(pubDate.value).format('YYYY-MM-DD')
     markdownContent.value = md.render(text.value)
   } catch (error) {
     console.error(error);
@@ -55,8 +55,8 @@ onMounted(() => {
     <div v-if="article">
       <div>
         <div v-if="article.data.attributes.cover.data?.attributes.link" class="post-cover aspect-video bg-slate-200" :style="{ 'background-image': 'url(' + (article.data.attributes.cover.data?.attributes.link) + ')' }"></div>
-        <div class="post-title font-semibold text-3xl pt-4">{{ article.data.attributes.Title }}</div>
-        <div class="post-subtitle opacity-80 pt-2">
+        <div class="post-title font-semibold text-3xl pt-12">{{ article.data.attributes.Title }}</div>
+        <div class="post-subtitle opacity-80 pt-4">
           <span v-if="author" v-for="items in author" :key="items.id">
             {{ items.attributes.username }} / 
           </span>
@@ -78,5 +78,6 @@ onMounted(() => {
 .post-cover {
   background-position: center;
   background-size: cover;
+  border-radius: var(--radius);
 }
 </style>
