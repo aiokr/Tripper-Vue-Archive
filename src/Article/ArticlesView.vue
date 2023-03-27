@@ -1,3 +1,4 @@
+<!--文章列表-->
 <script setup>
 import { ref, onMounted,inject } from 'vue'
 import { useRoute } from 'vue-router'
@@ -7,9 +8,6 @@ let articleList = ref(null);
 let category = ref(null)
 let route = useRoute()
 let pageid = ref(null)
-
-
-
 
 async function getArticleList(pageid) {
   try {

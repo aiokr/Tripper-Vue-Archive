@@ -1,8 +1,10 @@
+<!--首页文章-->
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
 
 let articleData = ref(null);
+
 async function fetchData() {
   try {
     const response = await axios.get('https://strapicms.tripper.press/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[limit]=3');
@@ -31,7 +33,6 @@ const state = {
   <div v-if="articleData" class="grid gap-8 grid-cols-1 md:grid-cols-3 place-items-stretch">
       <div class="post-entry" v-for="item in articleData" :key="item.id">
         <router-link :to="{ path: `/post/` + item.id }">
-
           <div v-if="item.attributes.cover.data?.attributes.link" class="post-cover"
             :style="{ 'background-image': 'url(' + (item.attributes.cover.data?.attributes.link) + ')' }">
           </div>
@@ -52,8 +53,6 @@ const state = {
           <!--<div v-for="author in item.attributes.Author.data" :key="author.id">
                                     {{ author.attributes.username }}
                                   </div>-->
-
-
         </router-link>
       </div>
     </div>
@@ -65,15 +64,8 @@ const state = {
 
 <style scoped>
 
-.home-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--main-black);
-}
-
 .post-entry {
-  transition: transform .3s, background-color .3s, box-shadow .6s;
+  transition: transform .3s, background-color .3s, box-shadow .6s ease-in-out;
   border-radius: var(--radius);
   color: var(--main-black);
 }
@@ -81,7 +73,7 @@ const state = {
 .post-entry:hover {
   transform: translateY(-5px);
   box-shadow: 1px 10px 30px 0 rgba(0, 0, 0, .1);
-  transition: transform .3s, background-color .3s, box-shadow .6s;
+  transition: transform .3s, background-color .3s, box-shadow .6s ease-in-out;
 }
 
 .post-info {
@@ -122,13 +114,9 @@ const state = {
   height: 36px;
   padding-top: 10px;
   display: -webkit-box;
-  /*将对象作为弹性伸缩盒子模型显示  必要*/
   -webkit-box-orient: vertical;
-  /*设置或检索伸缩盒对象的子元素的排列方式  必要*/
   -webkit-line-clamp: 2;
-  /*指定第几行溢出省略  必要*/
   overflow: hidden;
-  /*溢出隐藏  必要*/
 }
 
 .post-title {

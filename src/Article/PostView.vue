@@ -1,3 +1,4 @@
+<!--文章内页-->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'

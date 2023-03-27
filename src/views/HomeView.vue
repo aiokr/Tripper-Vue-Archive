@@ -1,12 +1,11 @@
 <script setup>
 import Hero from "../components/Hero.vue";
-import ArticleList from "../components/HomeArticle.vue";
-import AlbumList from "../components/HomeAlbum.vue";
+import HomeArticle from "../Article/HomeArticle.vue";
+import HomeAlbum from "../Photograph/HomeAlbum.vue";
 </script>
 <template>
   <Hero />
-  <ArticleList />
-  <AlbumList />
-  <Photo />
-  <Video />
+  <HomeArticle />
+  <HomeAlbum />
+  <div style="height: 120px;"></div>
 </template>
