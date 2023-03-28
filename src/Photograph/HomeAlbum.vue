@@ -30,13 +30,16 @@ const state = {
     </div>
     <div class="text-sm opacity-50 pb-6">当我按下快门的瞬间，瞬间即是永恒</div>
     <div v-if="albumData !== null" class="grid gap-8 grid-cols-1 md:grid-cols-2 place-items-stretch">
+
       <div class="col-span-1 album-entry" v-for="item in albumData" :key="item.id"
-      :style="{ 'background-image': 'url(' + (item.attributes.cover.data?.attributes.link) + ')' }">
-        <div class="album-info">
-          <div class="album-title">
-            {{ item.attributes.Title }}
+        :style="{ 'background-image': 'url(' + (item.attributes.cover.data?.attributes.link) + ')' }">
+        <router-link :to="{ path: `/album/` + item.id }">
+          <div class="album-info">
+            <div class="album-title">
+              {{ item.attributes.Title }}
+            </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>

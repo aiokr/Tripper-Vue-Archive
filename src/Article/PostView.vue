@@ -1,13 +1,10 @@
-<!--文章内页-->
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted,getCurrentInstance } from 'vue'
 import { useRoute } from 'vue-router'
-import axios from 'axios'
-import MarkdownIt from 'markdown-it'
-import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
-import emoji from 'markdown-it-emoji'
-import footnote from 'markdown-it-footnote'
 import moment from 'moment'
+
+const currentInstance = getCurrentInstance()
+const { $http,$apiUrl,$md } = currentInstance.appContext.config.globalProperties
 
 let route = useRoute()
 let id = ref(null)
@@ -21,18 +18,13 @@ let pubDate = ref(null)
 let title = ref(null)
 
 const markdownContent = ref('')
-var md = new MarkdownIt({
-  breaks: true,
-  langPrefix: 'language-',
-  linkify: true,
-})
-md.use(emoji).use(footnote)
 
 id = route.params.id
 
 async function getArticleById(id) {
   try {
-    const response = await axios.get(`https://strapicms.tripper.press/api/articles/${id}?populate=Author,category,cover,tags`);
+    const postUrl = $apiUrl + 'api/articles/'+id+'?populate=Author,category,cover,tags'
+    const response = await $http.get(postUrl);
     article.value = response.data;
     title.value = article.value.data.attributes.Title
     document.title = title.value +' | Tripper Press'
@@ -41,7 +33,7 @@ async function getArticleById(id) {
     author.value = article.value.data.attributes.Author.data
     category.value = article.value.data.attributes.category.data
     pubDate = moment(pubDate.value).format('YYYY-MM-DD')
-    markdownContent.value = md.render(text.value)
+    markdownContent.value = $md.render(text.value)
   } catch (error) {
     console.error(error);
   }

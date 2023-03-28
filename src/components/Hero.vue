@@ -11,7 +11,7 @@
 
 <style>
 .hero-img {
-  background-image: url('https://imgur.lzmun.com/picgo/after2022/6DD1FBC3-AD8A-4340-842D-6ACF531F8291_1_105_c.jpeg_itp');
+  background-image: url('https://imgur.lzmun.com/picgo/after2022/202209112241772.png_itp');
   background-position: center;
   background-size: cover;
   display: block;

@@ -106,7 +106,7 @@ ul {
 
 ol,
 ul {
-  margin-left: 0em;
+  margin-left: 1.2em !important;
 }
 
 ol li,
@@ -191,7 +191,7 @@ article section.footnotes ol {
   list-style: decimal;
 }
 
-article .footnote-ref a{
+article .footnote-ref a {
   color: var(--main-black) !important;
   text-decoration: none;
   font-size: .2em;

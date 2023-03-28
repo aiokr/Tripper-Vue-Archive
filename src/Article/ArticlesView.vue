@@ -1,8 +1,10 @@
 <!--文章列表-->
 <script setup>
-import { ref, onMounted,inject } from 'vue'
+import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRoute } from 'vue-router'
-import axios from 'axios'
+
+const currentInstance = getCurrentInstance()
+const { $http, $apiUrl } = currentInstance.appContext.config.globalProperties
 
 let articleList = ref(null);
 let category = ref(null)
@@ -11,15 +13,14 @@ let pageid = ref(null)
 
 async function getArticleList(pageid) {
   try {
-    const ArticleListUrl = 'https://strapicms.tripper.press/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[page]='+pageid+'&pagination[pageSize]=10'
-    const response = await axios.get(ArticleListUrl);
+    const ArticleListUrl = $apiUrl + 'api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[page]=' + pageid + '&pagination[pageSize]=10'
+    const response = await $http.get(ArticleListUrl);
     articleList.value = response.data.data;
     console.log(articleList.value)
   } catch (error) {
     console.error(error);
   }
 }
-
 
 onMounted(() => {
   pageid = route.params.p
@@ -52,8 +53,8 @@ onMounted(() => {
                 item.attributes.category.data?.attributes.Name }}</span>
             </div>
             <!--<div v-for="author in item.attributes.Author.data" :key="author.id">
-                                {{ author.attributes.username }}
-                              </div>-->
+                                  {{ author.attributes.username }}
+                                </div>-->
           </div>
 
         </router-link>
@@ -64,14 +65,14 @@ onMounted(() => {
 
 
 <style scoped>
-
 .post-list {
   max-width: 800px;
   margin: 0 auto;
 }
+
 .post-entry {
-  box-shadow: 1px 1px 5px 0 rgba(0,0,0,.02), 1px 1px 15px 0 rgba(0,0,0,.03);
-  transition: transform .3s,background-color .3s,box-shadow .6s;
+  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, .02), 1px 1px 15px 0 rgba(0, 0, 0, .03);
+  transition: transform .3s, background-color .3s, box-shadow .6s;
   border-radius: var(--radius);
 }
 

@@ -3,21 +3,29 @@ import App from "./App.vue";
 import router from "./router";
 import { createRouter, createWebHistory } from 'vue-router'
 import axios from 'axios'
-
+//Markdown
+import MarkdownIt from 'markdown-it'
+import tocAndAnchor from 'markdown-it-toc-and-anchor'
+import emoji from 'markdown-it-emoji'
+import footnote from 'markdown-it-footnote'
+//Style
 import "./assets/main.css";
 import "/src/tailwind.css";
 import "./assets/itypen-md.css";
 
-
-// 使用 provide 将全局变量作为响应式对象
-
-
 const app = createApp(App);
-app.config.globalProperties.$axios = axios
 
-app.use(router).mount("#app");
+var md = new MarkdownIt({
+  breaks: true,
+  langPrefix: 'language-',
+  linkify: true,
+})
+md.use(emoji).use(footnote).use(tocAndAnchor)
 
-// 全局变量
 const apiUrl = 'https://strapicms.tripper.press/';
-app.provide('apiUrl', apiUrl); //便于在js部分可直接用
-app.config.globalProperties.$apiUrl = apiUrl;  //便于在模板部分可直接用
+app.config.globalProperties.$apiUrl = apiUrl;
+app.config.globalProperties.$http = axios
+app.config.globalProperties.$md = md
+
+app.use(router)
+app.mount("#app");
