@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted,getCurrentInstance } from 'vue'
 import { useRoute } from 'vue-router'
-import moment from 'moment'
+
 
 const currentInstance = getCurrentInstance()
-const { $http,$apiUrl,$md } = currentInstance.appContext.config.globalProperties
+const { $http,$apiUrl,$md,$moment } = currentInstance.appContext.config.globalProperties
 
 let route = useRoute()
 let id = ref(null)
@@ -16,15 +16,12 @@ let cover = ref(null)
 let tags = ref(null)
 let pubDate = ref(null)
 let title = ref(null)
-
 const markdownContent = ref('')
-
-id = route.params.id
 
 async function getArticleById(id) {
   try {
-    const postUrl = $apiUrl + 'api/articles/'+id+'?populate=Author,category,cover,tags'
-    const response = await $http.get(postUrl);
+    const postDataUrl = $apiUrl + 'api/articles/'+id+'?populate=Author,category,cover,tags'
+    const response = await $http.get(postDataUrl);
     article.value = response.data;
     title.value = article.value.data.attributes.Title
     document.title = title.value +' | Tripper Press'
@@ -32,7 +29,7 @@ async function getArticleById(id) {
     pubDate.value = article.value.data.attributes.Date
     author.value = article.value.data.attributes.Author.data
     category.value = article.value.data.attributes.category.data
-    pubDate = moment(pubDate.value).format('YYYY-MM-DD')
+    pubDate = $moment(pubDate.value).format('YYYY-MM-DD')
     markdownContent.value = $md.render(text.value)
   } catch (error) {
     console.error(error);

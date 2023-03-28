@@ -1,15 +1,17 @@
 <!--首页文章-->
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
+import { ref, getCurrentInstance } from 'vue'
+
+const currentInstance = getCurrentInstance()
+const { $http, $apiUrl } = currentInstance.appContext.config.globalProperties
 
 let articleData = ref(null);
 
 async function fetchData() {
   try {
-    const response = await axios.get('https://strapicms.tripper.press/api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[limit]=3');
+    const ArticleUrl = $apiUrl + 'api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[limit]=3'
+    const response = await $http.get(ArticleUrl);
     articleData.value = response.data.data;
-    console.log(articleData.value)
   } catch (error) {
     console.error(error);
   }
@@ -30,7 +32,7 @@ const state = {
       <RouterLink to="/article/1" class="all-article">所有文章</RouterLink>
     </div>
     <div class="text-sm opacity-50 mb-6">放下相机，认真思考</div>
-  <div v-if="articleData" class="grid gap-8 grid-cols-1 md:grid-cols-3 place-items-stretch">
+    <div v-if="articleData" class="grid gap-8 grid-cols-1 md:grid-cols-3 place-items-stretch">
       <div class="post-entry" v-for="item in articleData" :key="item.id">
         <router-link :to="{ path: `/post/` + item.id }">
           <div v-if="item.attributes.cover.data?.attributes.link" class="post-cover"
@@ -51,8 +53,8 @@ const state = {
             <span v-else class="post-category nocategory">No Category</span>
           </div>
           <!--<div v-for="author in item.attributes.Author.data" :key="author.id">
-                                    {{ author.attributes.username }}
-                                  </div>-->
+                                        {{ author.attributes.username }}
+                                      </div>-->
         </router-link>
       </div>
     </div>
@@ -63,7 +65,6 @@ const state = {
 </template>
 
 <style scoped>
-
 .post-entry {
   transition: transform .3s, background-color .3s, box-shadow .6s ease-in-out;
   border-radius: var(--radius);

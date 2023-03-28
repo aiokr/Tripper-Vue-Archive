@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import { createRouter, createWebHistory } from 'vue-router'
 import axios from 'axios'
+import moment from 'moment'
 //Markdown
 import MarkdownIt from 'markdown-it'
 import tocAndAnchor from 'markdown-it-toc-and-anchor'
@@ -26,6 +27,7 @@ const apiUrl = 'https://strapicms.tripper.press/';
 app.config.globalProperties.$apiUrl = apiUrl;
 app.config.globalProperties.$http = axios
 app.config.globalProperties.$md = md
+app.config.globalProperties.$moment = moment
 
 app.use(router)
 app.mount("#app");

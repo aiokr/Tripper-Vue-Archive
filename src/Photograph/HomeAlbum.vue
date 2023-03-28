@@ -1,15 +1,16 @@
 <!--首页照片-->
 <script setup>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import { ref, onMounted, getCurrentInstance } from 'vue'
 
 let albumData = ref(null);
+const currentInstance = getCurrentInstance()
+const { $http, $apiUrl } = currentInstance.appContext.config.globalProperties
 
 async function fetchAlbumData() {
   try {
-    const response = await axios.get('https://strapicms.tripper.press/api/albums?populate=cover');
+    const albumUrl = $apiUrl + 'api/albums?sort[0]=Date%3Adesc&populate=cover'
+    const response = await $http.get(albumUrl);
     albumData.value = response.data.data;
-    console.log(albumData.value)
   } catch (error) {
     console.error(error);
   }
@@ -30,7 +31,6 @@ const state = {
     </div>
     <div class="text-sm opacity-50 pb-6">当我按下快门的瞬间，瞬间即是永恒</div>
     <div v-if="albumData !== null" class="grid gap-8 grid-cols-1 md:grid-cols-2 place-items-stretch">
-
       <div class="col-span-1 album-entry" v-for="item in albumData" :key="item.id"
         :style="{ 'background-image': 'url(' + (item.attributes.cover.data?.attributes.link) + ')' }">
         <router-link :to="{ path: `/album/` + item.id }">
@@ -72,6 +72,7 @@ const state = {
   transition: all .3s, ease-in-out;
   opacity: 1;
   background: linear-gradient(#00000000 50%, #00000055 100%);
+  border-radius: var(--radius);
 }
 
 .album-info:hover {

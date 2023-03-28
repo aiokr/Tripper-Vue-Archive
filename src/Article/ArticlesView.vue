@@ -16,7 +16,6 @@ async function getArticleList(pageid) {
     const ArticleListUrl = $apiUrl + 'api/articles?sort[0]=Date%3Adesc&populate=Author,category,cover&pagination[page]=' + pageid + '&pagination[pageSize]=10'
     const response = await $http.get(ArticleListUrl);
     articleList.value = response.data.data;
-    console.log(articleList.value)
   } catch (error) {
     console.error(error);
   }
