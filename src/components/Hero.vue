@@ -3,8 +3,8 @@
 <template>
   <div class="hero-img h-[500px]">
     <div class="hero-layer">
-      <div class="hero-title text-4xl font-bold">Tripper Press</div>
-      <div class="hero-subtitle color-white opacity-80 pt-3">拿起相机 认真思考</div>
+      <div class="hero-title text-4xl font-bold">前行有风</div>
+      <div class="hero-subtitle color-white opacity-80 pt-3">Tripper Press</div>
     </div>
   </div>
 </template>
