@@ -4,6 +4,7 @@ import router from "./router";
 import { createRouter, createWebHistory } from 'vue-router'
 import axios from 'axios'
 import moment from 'moment'
+import { inject } from '@vercel/analytics';
 //Markdown
 import MarkdownIt from 'markdown-it'
 import tocAndAnchor from 'markdown-it-toc-and-anchor'
@@ -22,6 +23,8 @@ var md = new MarkdownIt({
   linkify: true,
 })
 md.use(emoji).use(footnote).use(tocAndAnchor)
+
+inject();
 
 const apiUrl = 'https://strapicms.tripper.press/';
 app.config.globalProperties.$apiUrl = apiUrl;
