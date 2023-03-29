@@ -1,10 +1,12 @@
 <script setup>
 </script>
 <template>
-  <div class="hero-img h-[500px]">
-    <div class="hero-layer">
-      <div class="hero-title text-4xl font-bold">前行有风</div>
-      <div class="hero-subtitle color-white opacity-80 pt-3">Tripper Press</div>
+  <div class="hero-area lg:container lg:max-w-7xl lg:px-8">
+    <div class="hero-img h-[300px] lg:h-[500px] ">
+      <div class="hero-layer">
+        <div class="hero-title text-4xl font-bold">前行有风</div>
+        <div class="hero-subtitle color-white opacity-80 pt-3">Tripper Press</div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,8 +33,24 @@
   flex-direction: column;
 }
 
-.hero-title,.hero-subtitle {
+.hero-title,
+.hero-subtitle {
   color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .hero-img,
+  .hero-layer {
+    border-radius: var(--radius);
+  }
+}
+
+@media (max-width: 1022px) {
+  .hero-img,
+  .hero-layer {
+    border-bottom-right-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+  }
 }
 
 </style>

@@ -17,6 +17,7 @@
   background-color: rgba(255,255,255,.7098039216);
   backdrop-filter: saturate(180%) blur(18px)!important;
   z-index: 9999;
+  color: var(--main-black);
 }
 
 .header a {

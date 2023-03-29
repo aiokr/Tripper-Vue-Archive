@@ -89,7 +89,7 @@ const state = {
   font-size: 14px;
   display: inline-block;
   background-color: #f4f4f4;
-  color: #222831;
+  color: var(--main-black);
   font-weight: 600;
   margin-top: 16px;
   margin-bottom: 16px;

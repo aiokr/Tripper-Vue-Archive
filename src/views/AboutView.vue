@@ -13,7 +13,7 @@
 <style>
 mark {
   background-color: #0000;
-  color: #222831;
+  color: var(--main-black);
   ;
 }
 

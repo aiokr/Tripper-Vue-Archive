@@ -17,7 +17,7 @@ module.exports =
       colors:
       {
         'main': "#71afdd",
-        'text': "#222831",
+        'text': "var(--main-black)",
       },
     },
   },

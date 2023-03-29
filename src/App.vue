@@ -4,7 +4,6 @@ import Header from "./components/Header.vue";
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 </script>
-
 <template>
   <Header />
   <RouterView />

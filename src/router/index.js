@@ -12,6 +12,10 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      title: 'Tripper Press',
+      meta: {
+        keepAlive: true,
+      },
     },
     {
       path: "/about",
@@ -24,17 +28,26 @@ const router = createRouter({
     {
       path: "/article/:p",
       name: "article_page",
-      component: ArticlesView
+      component: ArticlesView,
+      meta: {
+        keepAlive: false,
+      },
     },
     {
       path: "/post/:id",
       name: "post",
       component: PostView,
+      meta: {
+        keepAlive: false,
+      },
     },
     {
       path: "/album/:id",
       name: "album",
       component: AlbumView,
+      meta: {
+        keepAlive: false,
+      },
     },
   ],
 });

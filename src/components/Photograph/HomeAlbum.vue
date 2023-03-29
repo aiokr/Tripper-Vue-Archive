@@ -51,7 +51,7 @@ const state = {
   aspect-ratio: 16 / 9;
   border-radius: var(--radius);
   transition: transform .3s, background-color .3s, box-shadow .6s ease-in-out;
-
+  min-height: 200px;
 }
 
 .album-entry:hover {
